@@ -170,6 +170,19 @@ require("lazy").setup(
       },
     },
     {
+      "renerocksai/telekasten.nvim",
+      dependencies = { "nvim-telescope/telescope.nvim" },
+      opts = {
+        home = vim.fn.expand("~/Zettelkasten"),
+        take_over_my_home = true,
+        dailies = vim.fn.expand("~/Zettelkasten/Daily"),
+        templates = vim.fn.expand("~/Zettelkasten/Templates"),
+        template_new_daily = vim.fn.expand("~/Zettelkasten/Templates/Daily.md"),
+        tag_notation = "@tag",
+        auto_set_filetype = true,
+      },
+    },
+    {
       -- Highlight, edit, and navigate code
       "nvim-treesitter/nvim-treesitter",
       dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
