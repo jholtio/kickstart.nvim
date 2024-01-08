@@ -171,15 +171,30 @@ require("lazy").setup(
     },
     {
       "renerocksai/telekasten.nvim",
-      dependencies = { "nvim-telescope/telescope.nvim" },
+      dependencies = {
+        "nvim-telescope/telescope.nvim",
+        "renerocksai/calendar-vim",
+      },
       opts = {
         home = vim.fn.expand("~/Zettelkasten"),
         take_over_my_home = true,
-        dailies = vim.fn.expand("~/Zettelkasten/Daily"),
-        templates = vim.fn.expand("~/Zettelkasten/Templates"),
-        template_new_daily = vim.fn.expand("~/Zettelkasten/Templates/Daily.md"),
-        tag_notation = "@tag",
         auto_set_filetype = true,
+        dailies = vim.fn.expand("~/Zettelkasten/Daily"),
+        weeklies = vim.fn.expand("~/Zettelkasten/Weekly"),
+        templates = vim.fn.expand("~/Zettelkasten/Templates"),
+        template_new_note = vim.fn.expand("~/Zettelkasten/Templates/New.md"),
+        template_new_daily = vim.fn.expand("~/Zettelkasten/Templates/Daily.md"),
+        template_new_weekly = vim.fn
+          .expand("~/Zettelkasten/Templates/Weekly.md"),
+        plug_into_calendar = true,
+        calendar_opts = {
+          weeknum = 5,
+          calendar_monday = 0,
+          calendar_mark = "left",
+        },
+        tag_notation = "@tag",
+        command_palette_theme = "dropdown",
+        rename_update_links = true,
       },
     },
     {
