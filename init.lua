@@ -428,6 +428,15 @@ vim.keymap.set(
   { desc = "[S]earch [R]esume" }
 )
 
+
+-- [[ Telekasten Keymaps ]]
+vim.keymap.set("n", "<Leader>zz", require("telekasten").panel)
+vim.keymap.set("n", "<Leader>zf", require("telekasten").follow_link)
+vim.keymap.set("n", "<Leader>zt", require("telekasten").goto_today)
+vim.keymap.set("n", "<Leader>zw", require("telekasten").goto_thisweek)
+vim.keymap.set("n", "<Leader>zx", require("telekasten").toggle_todo)
+
+
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
