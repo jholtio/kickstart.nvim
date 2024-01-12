@@ -142,7 +142,7 @@ require("lazy").setup(
         end,
       },
     },
-    { "navarasu/onedark.nvim", opts = { style = "warmer" } },
+    { "navarasu/onedark.nvim", opts = { style = "warmer", ending_tildes = true } },
     {
       -- Set lualine as statusline
       "nvim-lualine/lualine.nvim",
