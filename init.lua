@@ -2,6 +2,85 @@
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
+
+-- [[ 256 bit Colors ]]
+-- Defining global dark and light themes for lualine here. To switch use:
+--   :lua require('lualine').setup({options={theme=JH_DARK_LUALINE_THEME}})
+local colors = {
+  black        = '#000000',
+  gray11       = '#1c1c1c',
+  gray15       = '#262626',
+  gray19       = '#303030',
+  gray23       = '#3a3a3a',
+  gray35       = '#585858',
+  gray48       = '#7a7a7a',
+  gray76       = '#c2c2c2',
+  gray93       = '#eeeeee',
+  white        = '#ffffff',
+
+  -- light versions
+  maroon       = '#800000',
+  green        = '#008000',
+  olive        = '#808000',
+  purple       = '#800080',
+  teal         = '#008080',
+
+  -- dark versions
+  red          = '#ff0000',
+  fuchsia      = '#ff00ff',
+  yellow       = '#ffff00',
+  thistle      = '#ffd7ff',
+  aqua         = '#00ffff',
+  pale_green   = '#87ffaf'
+}
+
+JH_DARK_LUALINE_THEME = {
+  normal = {
+    a = {bg = colors.pale_green, fg = colors.black, gui = "bold"},
+    b = {bg = colors.gray35, fg = colors.white},
+    c = {bg = colors.gray19, fg = colors.white}
+  },
+  insert = {
+    a = {bg = colors.aqua, fg = colors.black, gui = "bold"}
+  },
+  replace = {
+    a = {bg = colors.fuchsia, fg = colors.black, gui = "bold"}
+  },
+  visual = {
+    a = {bg = colors.thistle, fg = colors.black, gui = 'bold'}
+  },
+  command = {
+    a = {bg = colors.yellow, fg = colors.black, gui = 'bold'}
+  },
+  inactive = {
+    c = {bg = colors.gray19, fg = colors.gray48}
+  }
+}
+
+JH_LIGHT_LUALINE_THEME = {
+  normal = {
+    a = {bg = colors.green, fg = colors.white, gui = "bold"},
+    b = {bg = colors.gray76, fg = colors.black},
+    c = {bg = colors.gray93, fg = colors.black}
+  },
+  insert = {
+    a = {bg = colors.teal, fg = colors.white, gui = "bold"}
+  },
+  replace = {
+    a = {bg = colors.maroon, fg = colors.white, gui = "bold"}
+  },
+  visual = {
+    a = {bg = colors.purple, fg = colors.white, gui = 'bold'}
+  },
+  command = {
+    a = {bg = colors.olive, fg = colors.white, gui = 'bold'}
+  },
+  inactive = {
+    c = {bg = colors.gray93, fg = colors.gray48}
+  }
+}
+
+
 -- [[ Configure Package Manager Lazy ]]
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -147,7 +226,7 @@ require("lazy").setup(
       -- Set lualine as statusline
       -- See `:help lualine.txt`
       "nvim-lualine/lualine.nvim",
-      opts = { options = { icons_enabled = true, theme = my_light_lualine_theme, component_separators = "|", section_separators = "" } },
+      opts = { options = { icons_enabled = true, theme = JH_LIGHT_LUALINE_THEME, component_separators = "|", section_separators = "" } }
     },
     -- "gc" to comment visual regions/lines
     { "numToStr/Comment.nvim", opts = {} },
