@@ -1,4 +1,4 @@
---  Setting this first, otherwise plugins might use the wrong key
+-- Setting this first, otherwise plugins might use the wrong key
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
@@ -145,9 +145,9 @@ require("lazy").setup(
     { "navarasu/onedark.nvim", opts = { style = "warmer", ending_tildes = true } },
     {
       -- Set lualine as statusline
-      "nvim-lualine/lualine.nvim",
       -- See `:help lualine.txt`
-      opts = { options = { icons_enabled = true, theme = "auto" } },
+      "nvim-lualine/lualine.nvim",
+      opts = { options = { icons_enabled = true, theme = my_light_lualine_theme, component_separators = "|", section_separators = "" } },
     },
     -- "gc" to comment visual regions/lines
     { "numToStr/Comment.nvim", opts = {} },
@@ -271,12 +271,12 @@ require("lazy").setup(
 )
 
 -- [[ Basic Vim options ]]
-vim.o.hlsearch = false
+-- vim.o.hlsearch = false
 vim.o.number = true
-vim.cmd.colorscheme("onedark")
+-- vim.cmd.colorscheme("onedark")
 vim.o.mouse = "a"
 vim.o.clipboard = "unnamedplus"
-vim.wo.signcolumn = "yes"
+vim.wo.signcolumn = "number"
 
 -- Set completeopt to have a better completion experience
 -- A comma-separated list of options for Insert mode completion
@@ -284,7 +284,7 @@ vim.wo.signcolumn = "yes"
 vim.o.completeopt = "menuone,longest,noselect"
 
 -- Use `echo $COLORTERM` to ensure that your terminal supports this
-vim.o.termguicolors = true
+-- vim.o.termguicolors = true
 
 -- Allow specified keys that move the cursor left/right to move to the
 -- previous/next line when the cursor is on the first/last character in
@@ -292,6 +292,8 @@ vim.o.termguicolors = true
 vim.o.whichwrap = "b,s,h,l,<,>,[,]"
 
 -- [[ Basic Keymaps ]]
+vim.keymap.set("n", "<Leader>nh", vim.cmd.nohlsearch, { desc = "Suspend highlighting search results" })
+
 -- Diagnostic keymaps
 vim.keymap.set(
   "n", "[d", vim.diagnostic.goto_prev,
@@ -381,6 +383,8 @@ vim.keymap.set(
   end, { desc = "[/] Fuzzily search in current buffer" }
 )
 
+vim.keymap.set("n", "<Leader>tk", require("telescope.builtin").keymaps, { desc = "Show [K]eymaps" })
+
 local function telescope_live_grep_open_files()
   require("telescope.builtin").live_grep {
     grep_open_files = true,
@@ -430,12 +434,24 @@ vim.keymap.set(
 
 
 -- [[ Telekasten Keymaps ]]
-vim.keymap.set("n", "<Leader>zz", require("telekasten").panel)
-vim.keymap.set("n", "<Leader>zf", require("telekasten").follow_link)
-vim.keymap.set("n", "<Leader>zt", require("telekasten").goto_today)
-vim.keymap.set("n", "<Leader>zw", require("telekasten").goto_thisweek)
-vim.keymap.set("n", "<Leader>zx", require("telekasten").toggle_todo)
+-- z for 'Zettelkasten'
+vim.keymap.set("n", "<Leader>zc", require("telekasten").show_calendar, { desc = "Show the [C]alendar" })
+vim.keymap.set("n", "<Leader>zd", require("telekasten").toggle_todo, { desc = "Toggle To [D]o Status" })
+vim.keymap.set("n", "<Leader>zf", require("telekasten").follow_link, { desc = "[F]ollow Link" })
+vim.keymap.set("n", "<Leader>zl", require("telekasten").insert_link, { desc = "Insert [L]ink" })
+vim.keymap.set("n", "<Leader>zn", require("telekasten").new_note, { desc = "[N]ew Note" })
+vim.keymap.set("n", "<Leader>zp", require("telekasten").panel, { desc = "Telekasten [P]anel" })
+vim.keymap.set("n", "<Leader>zs", require("telekasten").find_notes, { desc = "[S]earch for a Note" })
+vim.keymap.set("n", "<Leader>zt", require("telekasten").goto_today, { desc = "Go to [T]oday's Note" })
+vim.keymap.set("n", "<Leader>zw", require("telekasten").goto_thisweek, { desc = "Go to This [W]eek's Note" })
+vim.keymap.set("n", "<Leader>zz", require("telekasten").show_tags, { desc = "Show [Z]ettelkasten Tags" })
 
+
+-- [[ fugitive Keymaps ]]
+vim.keymap.set("n", "<Leader>gg", ":vertical Git<CR>", { desc = "Show or Focus Fugitive Summary Window" })
+
+-- [[ nvim-tree Keymaps ]]
+-- vim.keymap.set("n", "<Leader>et", require("nvim-tree.api").tree.toggle, { desc = "Open or close the nvim-tree File Explorer" })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -642,6 +658,7 @@ cmp.setup {
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-c>"] = cmp.mapping.abort(),
     ["<C-Space>"] = cmp.mapping.complete {},
     ["<CR>"] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
